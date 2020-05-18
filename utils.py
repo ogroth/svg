@@ -81,9 +81,19 @@ def load_dataset(opt):
                 train=False,
                 seq_len=opt.n_eval,
                 image_size=opt.image_width)
-    elif opt.dataset == 'clevrer':
-        raise NotImplementedError
     elif opt.dataset == 'cars_on_highway':
+        from data.cars_real_traffic import CarsRealTraffic
+        train_data = CarsRealTraffic(
+                data_root=opt.data_root,
+                seq_len=opt.n_past+opt.n_future,
+                image_size=opt.image_width,
+                epoch_size=opt.epoch_size)
+        test_data = CarsRealTraffic(  # NOTE: pseudo-test here!
+                data_root=opt.data_root,
+                seq_len=opt.n_eval,
+                image_size=opt.image_width,
+                epoch_size=1)
+    elif opt.dataset == 'clevrer':
         raise NotImplementedError
     
     return train_data, test_data
