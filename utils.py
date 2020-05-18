@@ -20,7 +20,11 @@ from PIL import Image, ImageDraw
 from torchvision import datasets, transforms
 from torch.autograd import Variable
 import imageio
-
+# HACK: patch imageio to disable lossy conversion warnings!
+import imageio.core.util
+def silence_imageio_warning(*args, **kwargs):
+    pass
+imageio.core.util._precision_warn = silence_imageio_warning
 
 hostname = socket.gethostname()
 
@@ -65,6 +69,22 @@ def load_dataset(opt):
                 data_root=opt.data_root,
                 seq_len=opt.n_eval, 
                 image_size=opt.image_width)
+    elif opt.dataset == 'bowl2balls':
+        from data.bowl_2balls import Bowl2Balls
+        train_data = Bowl2Balls(
+                data_root=opt.data_root,
+                train=True,
+                seq_len=opt.n_past+opt.n_future,
+                image_size=opt.image_width)
+        test_data = Bowl2Balls(
+                data_root=opt.data_root,
+                train=False,
+                seq_len=opt.n_eval,
+                image_size=opt.image_width)
+    elif opt.dataset == 'clevrer':
+        raise NotImplementedError
+    elif opt.dataset == 'cars_on_highway':
+        raise NotImplementedError
     
     return train_data, test_data
 
@@ -141,6 +161,7 @@ def save_np_img(fname, x):
     img = scipy.misc.toimage(x,
                              high=255*x.max(),
                              channel_axis=0)
+    # img = Image.fromarray(x)
     img.save(fname)
 
 def make_image(tensor):
@@ -148,9 +169,11 @@ def make_image(tensor):
     if tensor.size(0) == 1:
         tensor = tensor.expand(3, tensor.size(1), tensor.size(2))
     # pdb.set_trace()
-    return scipy.misc.toimage(tensor.numpy(),
-                              high=255*tensor.max(),
+    t = tensor.numpy()
+    return scipy.misc.toimage(t,
+                              high=255*t.max(),
                               channel_axis=0)
+    # return Image.fromarray(tensor.numpy())
 
 def draw_text_tensor(tensor, text):
     np_x = tensor.transpose(0, 1).transpose(1, 2).data.cpu().numpy()
