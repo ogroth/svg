@@ -24,7 +24,7 @@ class CarsRealTraffic(object):
             seq_ims  = sorted([dir_name+'/'+f for f in os.listdir(dir_name) if f[-5:]=='.jpeg'])
             for j in range(len(seq_ims)-3*seq_len):
                 ## Look at the h option and load only 2...
-                self.data.append(seq_ims[j:j+2*seq_len:2]) 
+                self.data.append(seq_ims[j:j+2*seq_len:2])
     
         self.N = int(kwargs['epoch_size'])
         self.seq_len = seq_len

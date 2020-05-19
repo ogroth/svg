@@ -19,7 +19,7 @@ class Bowl2Balls(object):
             self.ordered = False
         else:
             self.data_dir = '%s/test' % self.root_dir
-            self.ordered = True 
+            self.ordered = True
         self.dirs = []
         for d1 in os.listdir(self.data_dir):
             self.dirs.append('%s/%s/render' % (self.data_dir, d1))
