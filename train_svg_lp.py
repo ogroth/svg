@@ -152,13 +152,13 @@ train_loader = DataLoader(train_data,
                           num_workers=opt.data_threads,
                           batch_size=opt.batch_size,
                           shuffle=True,
-                          drop_last=True,
+                          drop_last=True,  # True
                           pin_memory=True)
 test_loader = DataLoader(test_data,
                          num_workers=opt.data_threads,
                          batch_size=opt.batch_size,
                          shuffle=True,
-                         drop_last=True,
+                         drop_last=True,  # True
                          pin_memory=True)
 
 def get_training_batch():

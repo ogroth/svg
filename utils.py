@@ -92,7 +92,7 @@ def load_dataset(opt):
                 data_root=opt.data_root,
                 seq_len=opt.n_eval,
                 image_size=opt.image_width,
-                epoch_size=2)
+                epoch_size=opt.epoch_size)
     elif opt.dataset == 'clevrer':
         from data.clevrer import CLEVRER
         train_data = CLEVRER(
@@ -101,12 +101,12 @@ def load_dataset(opt):
                 seq_len=opt.n_past+opt.n_future,
                 image_size=opt.image_width,
                 epoch_size=opt.epoch_size)
-        test_data = CLEVRER(
+        test_data = CLEVRER(  # NOTE: pseudo-test here!
                 data_root=opt.data_root,
                 train=False,
                 seq_len=opt.n_eval,
                 image_size=opt.image_width,
-                epoch_size=2)
+                epoch_size=opt.epoch_size)
     
     return train_data, test_data
 
