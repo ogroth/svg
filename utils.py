@@ -107,6 +107,20 @@ def load_dataset(opt):
                 seq_len=opt.n_eval,
                 image_size=opt.image_width,
                 epoch_size=opt.epoch_size)
+    elif opt.dataset == 'shapestacks':
+        from data.shapestack_video import ShapeStackVideo
+        train_data = ShapeStackVideo(
+                data_root=opt.data_root,
+                train=True,
+                seq_len=opt.n_past+opt.n_future,
+                image_size=opt.image_width,
+                epoch_size=opt.epoch_size)
+        test_data = ShapeStackVideo(  # NOTE: pseudo-test here!
+                data_root=opt.data_root,
+                train=False,
+                seq_len=opt.n_eval,
+                image_size=opt.image_width,
+                epoch_size=opt.epoch_size)
     
     return train_data, test_data
 
