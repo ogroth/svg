@@ -136,7 +136,7 @@ def make_gifs(x, idx, name):
     nsample = opt.nsample
     ssim = np.zeros((opt.batch_size, nsample, opt.n_future))
     psnr = np.zeros((opt.batch_size, nsample, opt.n_future))
-    progress = progressbar.ProgressBar(max_value=nsample).start()
+    progress = progressbar.ProgressBar(maxval=nsample).start()
     all_gen = []
     for s in range(nsample):
         progress.update(s+1)
