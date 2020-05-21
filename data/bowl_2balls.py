@@ -44,7 +44,8 @@ class Bowl2Balls(object):
         start = np.random.randint(0,l_seq-self.seq_len-1)
         for i in range(start, start+self.seq_len):
             fname = '%s/%04d.jpg' % (d, 3*i)
-            im = (np.asarray(Image.open(fname).resize((self.image_size,self.image_size),PIL.Image.LANCZOS)).reshape(1, self.image_size, self.image_size, 3).astype('float32') - 127.5) / 255
+            # im = (np.asarray(Image.open(fname).resize((self.image_size,self.image_size),PIL.Image.LANCZOS)).reshape(1, self.image_size, self.image_size, 3).astype('float32') - 127.5) / 255
+            im = (np.asarray(Image.open(fname).resize((self.image_size,self.image_size),PIL.Image.LANCZOS)).reshape(1, self.image_size, self.image_size, 3).astype('float32')) / 255
             image_seq.append(im)
         image_seq = np.concatenate(image_seq, axis=0)
         if self.seq_len == 1:

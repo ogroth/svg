@@ -34,8 +34,10 @@ class CLEVRER(object):
         images = seq_ims[start:start+self.seq_len]
         image_seq = []
         for i in range(len(images)):
+            # im = (np.asarray(Image.open(images[i]).resize((self.image_size,self.image_size),PIL.Image.LANCZOS)).reshape(1, \
+            #     self.image_size, self.image_size, 3).astype('float32') - 127.5) / 255
             im = (np.asarray(Image.open(images[i]).resize((self.image_size,self.image_size),PIL.Image.LANCZOS)).reshape(1, \
-                self.image_size, self.image_size, 3).astype('float32') - 127.5) / 255
+                self.image_size, self.image_size, 3).astype('float32')) / 255
         
             image_seq.append(torch.from_numpy(im[0,:,:,:]).permute(2,0,1))
         
