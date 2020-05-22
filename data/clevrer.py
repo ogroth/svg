@@ -19,6 +19,13 @@ class CLEVRER(object):
         self.dir = []
         for directory in self.data_dir:
             self.dir += [directory+'/'+f for f in os.listdir(directory) if f[0]=='f']
+        
+        # split data in training and test set as 80/20
+        split_idx = int(np.rint(len(self.dir) * 0.8))
+        if train:
+            self.dir = self.dir[:split_idx]  # 80%
+        else:
+            self.dir = self.dir[split_idx:]  # 20%
     
         self.N = int(kwargs['epoch_size'])
         self.seq_len = seq_len

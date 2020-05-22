@@ -10,13 +10,18 @@ class CarsRealTraffic(object):
     
     """Data Handler that loads cars data."""
 
-    def __init__(self, data_root, seq_len=1, image_size=64, **kwargs):
+    def __init__(self, data_root, train=True, seq_len=1, image_size=64, **kwargs):
         # This is TODO, we want to see what happens here
         self.root_dir = data_root 
         self.image_size = image_size
 
-        self.dir = [self.root_dir+f for f in os.listdir(self.root_dir) if f[0]=='f']
-
+        self.dir = sorted([self.root_dir+f for f in os.listdir(self.root_dir) if f[0]=='f'])
+        # split data in training and test set as 80/20
+        split_idx = int(np.rint(len(self.dir) * 0.8))
+        if train:
+            self.dir = self.dir[:split_idx]  # 80% (491) of 614 videos total
+        else:
+            self.dir = self.dir[split_idx:]  # 20% (123) of 614 videos total
 
         self.data = []
         for i in range(len(self.dir)):

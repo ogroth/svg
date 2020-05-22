@@ -44,6 +44,13 @@ class ShapeStackVideo(object):
                 ## Look at the h option and load only 2...
                 self.dirs += list(name) 
 
+        # split data in training and test set as 80/20
+        split_idx = int(np.rint(len(self.dirs) * 0.8))
+        if train:
+            self.dirs = self.dirs[:split_idx]  # 80% (491) of 614 videos total
+        else:
+            self.dirs = self.dirs[split_idx:]  # 20% (123) of 614 videos total
+
         self.seq_len = seq_len
         self.image_size = image_size 
         self.seed_is_set = False # multi threaded loading
