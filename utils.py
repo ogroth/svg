@@ -85,11 +85,13 @@ def load_dataset(opt):
         from data.cars_real_traffic import CarsRealTraffic
         train_data = CarsRealTraffic(
                 data_root=opt.data_root,
+                train=True,
                 seq_len=opt.n_past+opt.n_future,
                 image_size=opt.image_width,
                 epoch_size=opt.epoch_size)
-        test_data = CarsRealTraffic(  # NOTE: pseudo-test here!
+        test_data = CarsRealTraffic(
                 data_root=opt.data_root,
+                train=False,
                 seq_len=opt.n_eval,
                 image_size=opt.image_width,
                 epoch_size=opt.epoch_size)
@@ -101,7 +103,7 @@ def load_dataset(opt):
                 seq_len=opt.n_past+opt.n_future,
                 image_size=opt.image_width,
                 epoch_size=opt.epoch_size)
-        test_data = CLEVRER(  # NOTE: pseudo-test here!
+        test_data = CLEVRER(
                 data_root=opt.data_root,
                 train=False,
                 seq_len=opt.n_eval,
@@ -115,7 +117,7 @@ def load_dataset(opt):
                 seq_len=opt.n_past+opt.n_future,
                 image_size=opt.image_width,
                 epoch_size=opt.epoch_size)
-        test_data = ShapeStackVideo(  # NOTE: pseudo-test here!
+        test_data = ShapeStackVideo(
                 data_root=opt.data_root,
                 train=False,
                 seq_len=opt.n_eval,
