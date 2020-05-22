@@ -64,7 +64,8 @@ class ShapeStackVideo(object):
         # l_seq = len([f for f in os.listdir(d) if f[-4:]=='.png'])
         # name = [f for f in os.listdir(d) if f[-4:]=='.png'][0][:36]
         start = np.random.randint(0,3)
-        for i in range(start, start+7*self.seq_len, 7):
+        # for i in range(start, start+7*self.seq_len, 7):
+        for i in range(start, start+self.seq_len):
             # fname = '%s/%s%d.png' % (d,name,i)
             # im = (np.asarray(Image.open(d+'mono-%04d.png'%i).resize((self.image_size,self.image_size),PIL.Image.LANCZOS)).reshape(1, \
             #     self.image_size, self.image_size, 3).astype('float32') - 127.5) / 255
