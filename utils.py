@@ -230,6 +230,14 @@ def save_gif(filename, inputs, duration=0.25):
         images.append(img.numpy())
     imageio.mimsave(filename, images, duration=duration)
 
+def save_gif_v2(filename, inputs, duration=0.25):
+    images = []
+    for img in inputs:
+        img = img.cpu()
+        img = img.transpose(0,1).transpose(1,2).clamp(0,1)
+        images.append(img.numpy())
+    imageio.mimsave(filename, images, duration=duration)
+
 def save_gif_with_text(filename, inputs, text, duration=0.25):
     images = []
     for tensor, text in zip(inputs, text):
